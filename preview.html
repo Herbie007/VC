@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Preview</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+
+    <style type="text/css">
+        button.list-group-item-info:active{
+            background-color:#269abc;
+            color:#fff;
+        }
+        button.list-group-item-success:active{
+            background-color:#398439;
+            color:#fff;
+        }
+        button.list-group-item-danger:active{
+            background-color:#ac2925;
+            color:#fff;
+        }
+        .list-group-item .row{
+            margin: 5px auto;
+        }
+        input{
+            vertical-align: middle;
+        }
+        input[type="radio"]{
+            margin: 15px auto;
+        }
+        input[type="checkbox"]{
+            margin: 15px auto;
+        }
+        input[type="text"]{
+            margin: 5px auto;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="list-group" id="Qs">
+        <div class="list-group-item list-group-item-success">
+            <div class="row">
+                <h1 id="Title" style="font-weight: bold"></h1>
+            </div>
+            <div class="row">
+                <h4 id="Describe"></h4>
+            </div>
+        </div>
+        <div class="list-group-item" id="Complete">
+            <button class="btn btn-success" onclick=window.location='complete.html'>Complete</button>
+        </div>
+    </div>
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var QNow = 0;
+    var str = localStorage.getItem('jj');
+    if(str == null) alert('Error Happens!');
+    else {
+        localStorage.removeItem('jj');
+        var jason = JSON.parse(str);
+       // console.log(jason);
+        var QN = parseInt(jason.quesNumber);
+        $('#Title').text(jason.title);
+        $('#Describe').text('Describe:'+jason.describe);
+        for(var i = 1; i <= QN; i++){
+            var tempStr = '<div class="list-group-item"><div class="row">' +
+                '<label style="color: #419641">Question:' + i + '</label></div><div class="row">' +
+                '<h2 style="font-weight: bolder">' + jason.ques[i-1].question + '</h2></div>';
+        //    alert(tempStr);
+            if(jason.ques[i-1].type == 'SingleSelect'){
+                var NS = parseInt(jason.ques[i-1].answerNumberS);
+                var temps = ' ';
+                for(var s = 0; s < NS; s++){
+                    temps = temps + '<div class="row">' +
+                        '<label> <input type="radio" name="ss'+i+'">' +
+                            jason.ques[i-1].answerS[s].text +
+                        '</label>     </div>';
+                }
+                tempStr = tempStr + temps;
+            } else if (jason.ques[i-1].type == 'MultiSelect'){
+                var NM = parseInt(jason.ques[i-1].answerNumberM);
+                var tempm = '';
+                for(var m = 0; m < NM; m++){
+                    tempm = tempm + '            <div class="row">' +
+                        '<label> <input type="checkbox" name="mm'+i+'">' +
+                            jason.ques[i-1].answerM[m].text +
+                        '</label>    </div>';
+                }
+                tempStr = tempStr + tempm;
+            } else if (jason.ques[i-1].type == 'TextInput'){
+                var tempt = '            <div class="row">'+
+                    ' <input type="text" class="form-control"' +
+                    ' style="width: 50%;margin-left: 0px;"' +
+                    ' id="answer' + i +
+                    '"> ' +
+                    '</div>';
+                tempStr = tempStr + tempt;
+            }
+            tempStr = tempStr +
+                '        </div>';
+            $('#Complete').before(tempStr);
+        }
+    }
+
+</script>
+</html>

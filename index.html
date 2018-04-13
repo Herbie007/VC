@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Questionnaires Creator</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+
+    <style type="text/css">
+        button.list-group-item-info:active{
+            background-color:#269abc;
+            color:#fff;
+        }
+        button.list-group-item-success:active{
+            background-color:#398439;
+            color:#fff;
+        }
+        button.list-group-item-danger:active{
+            background-color:#ac2925;
+            color:#fff;
+        }
+        .list-group-item .row{
+            margin: 5px auto;
+        }
+        input{
+            vertical-align: middle;
+        }
+        input[type="radio"]{
+            margin: 15px auto;
+        }
+        input[type="checkbox"]{
+            margin: 15px auto;
+        }
+        input[type="text"]{
+            margin: 5px auto;
+        }
+        .blog-footer {
+            padding: 40px 0;
+            color: #999;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e5e5e5;
+            margin-top: 400px;
+        }
+        .blog-footer p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="row">
+
+    <div class="col-lg-1 col-sm-1"></div>
+    <div class="btn-group-vertical col-lg-2 col-sm-2 col-xs-12">
+        <button type="button" class="btn btn-primary" href="#" data-toggle="tab" style="height: 80px;text-align: left;font-size: xx-large" onclick="toPreview()">
+            <span class="glyphicon glyphicon-eye-open" ></span> Preview</button>
+        <button type="button" class="btn btn-info"  href="#" data-toggle="tab" style="height: 75px;text-align: left;font-size: large">
+            <span class="glyphicon glyphicon-saved" ></span> Generate(not done yet)</button>
+        <button type="button" class="btn btn-success" href="#" data-toggle="tab" style="height: 75px;text-align: left;font-size: large">
+            <span class="glyphicon glyphicon-download-alt" ></span> Save(not done yet)</button>
+        <button type="button" class="btn btn-danger" href="#" data-toggle="tab" style="height: 75px;text-align: left;font-size: large">
+            <span class="glyphicon glyphicon-export" ></span> Back(not done yet)</button>
+    </div>
+    <div class="list-group col-lg-8 col-sm-8 col-xs-12" id="LG">
+        <div class="list-group-item list-group-item-success">
+            <h1>Questionnaire:</h1>
+            <div class="row">
+                <div>
+                    <label>Title:&nbsp;</label>
+                </div>
+                <div>
+                    <input type="text" id="Title" class="form-control" style="width: 50%; margin-left: 0;">
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <label style="vertical-align: top">Describe:&nbsp;</label>
+                </div>
+                <div>
+                    <textarea id="Describe" class="form-control" style="width: 70%"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="list-group-item" id="LGI" style="display: none" data-order="0">
+            <div class="row">
+                <div class="col-lg-10 col-xs-9">
+                <div class="row">
+                    <div>
+                        <label id="QL" class="QLC" style="vertical-align: top">Question1:&nbsp;</label>
+                    </div>
+                    <div>
+                        <textarea id="Ques" class="form-control" style="width: 90%"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-xs-12">
+                        <div>
+                            <label>Answer Type:&nbsp;</label>
+                        </div>
+                        <div class="row">
+                            <select id="AnswerType" class="btn btn-default"><!-- data-style="btn-primary"-->
+                                <option disabled="disabled" selected="selected">----Please Select----</option>
+                                <option value="SingleSelect">SingleSelect</option>
+                                <option value="MultiSelect">MultiSelect</option>
+                                <option value="TextInput">TextInput</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 fade" id="ANSs" style="display: none">
+                        <div>
+                            <label>Answer Number:&nbsp;</label>
+                        </div>
+                        <div class="row">
+                            <select id="AnswerNumberS" class="btn btn-default">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-12 fade" id="ANMs" style="display: none">
+                        <div>
+                            <label>Answer Number:&nbsp;</label>
+                        </div>
+                        <div class="row">
+                            <select id="AnswerNumberM" class="btn btn-default"><!-- data-style="btn-primary"-->
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            <div class="tab-content">
+                <div class="row tab-pane fade" id="SingleSelect">
+                    <div class="col-lg-12" >
+                        <label>Answers:&nbsp;</label>
+                    </div>
+                    <div class="row" id="Ans">
+                        <div class="col-xs-1 col-lg-1" >
+                            <input type="radio" name="ss" value="1" style="margin-left: 90%"><!--checked-->
+                        </div>
+                        <div class="col-xs-8 col-lg-5" >
+                          <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row tab-pane fade" id="MultiSelect">
+                    <div class="col-lg-12" >
+                        <label>Answers:&nbsp;</label>
+                    </div>
+                    <div class="row" id="Anm">
+                        <div class="col-xs-1 col-lg-1" >
+                            <input type="checkbox" name="mm" value="1" style="margin-left: 90%"><!--checked-->
+                        </div>
+                        <div class="col-xs-8 col-lg-5" >
+                            <input type="text" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row tab-pane fade" id="TextInput" style="height: 50px">
+                    <div class="col-lg-12" >
+                        <label>Answers:&nbsp;</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Example showing." disabled="disabled" style="width:60%; margin-left: 10px">
+                    </div>
+                </div>
+            </div>
+            </div>
+                <div class="col-lg-2 col-xs-3">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-danger" id="Delete" style="text-align: left">
+                            <span class="glyphicon glyphicon-trash" ></span> Delete</button>
+                        <button type="button" class="list-group-item list-group-item-success" id="Up" style="text-align: left;">
+                            <span class="glyphicon glyphicon-arrow-up" ></span> Up</button>
+                        <button type="button" class="list-group-item list-group-item-success" id="Down" style="text-align: left">
+                            <span class="glyphicon glyphicon-arrow-down" ></span> Down</button>
+                        <button type="button" class="list-group-item list-group-item-info" id="Copy" style="text-align: left">
+                            <span class="glyphicon glyphicon-duplicate" ></span> Copy</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="list-group-item" id="addItem">
+            <button class="btn btn-primary" onclick="AddQuestion(this)" id="AddQues">Add Question...</button>
+            <button class="btn btn-success" onclick="AddQuestion(this)" id="Paste">Paste</button>
+        </div>
+    </div>
+    <div class="col-lg-1 col-sm-1"></div>
+</div>
+
+<footer class="blog-footer">
+    <p align="center">Built by <a id="wechat" tabindex="0" data-toggle="popover" data-trigger="focus" data-container="body" data-placement="top" title="Wechat QR Code">@曹辉彬(Herbie Cao)</a> from <a href="http://www.xmubboy.club/bboy">XMU-Bboy</a>.</p>
+    <p>
+        <a href="http://www.miitbeian.gov.cn/">闽ICP备17015125号</a>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35082302000133">闽公网安备 35082302000133号</a>
+    </p>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#wechat').popover({
+        html:true,
+        content: "<img src='img/code.jpg'>"
+    });
+        var QuesNO = 0;
+        var toCopy = 0;
+    function AddQuestion(btnAP){
+        QuesNO++;
+        var QN = QuesNO;
+        var $cloner;
+        var lastChoice = '#';
+        if($(btnAP).attr('id') == "AddQues") {
+            $cloner = $('#LGI').clone().attr('id', 'LGI' + QN).css('display', 'block').attr('data-order', ($('#LG').children(".list-group-item").length-2));
+            $cloner.find('#QL').attr('id','QL'+QN).text('Question'+($('#LG').children(".list-group-item").length-2)+':');
+            $cloner.find('#Ques').attr('id','Ques'+QN);
+            $cloner.find('#TextInput').attr('id','TextInput'+QN);
+            $cloner.find('#AnswerType').attr('id','AnswerType'+QN);
+            $cloner.find('#SingleSelect').attr('id','SingleSelect'+QN);
+            $cloner.find('#ANSs').attr('id','ANSs'+QN);
+            $cloner.find('#MultiSelect').attr('id','MultiSelect'+QN);
+            $cloner.find('#ANMs').attr('id','ANMs'+QN);
+            $cloner.find('#AnswerNumberS').attr('id','AnswerNumberS'+QN);
+            $cloner.find('#Ans').attr('id','Ans'+QN+'1');
+            $cloner.find('#AnswerNumberM').attr('id','AnswerNumberM'+QN);
+            $cloner.find('#Anm').attr('id','Anm'+QN+'1');
+            $cloner.find('#Delete').attr('id','Delete'+QN);
+            $cloner.find('#Up').attr('id','Up'+QN);
+            $cloner.find('#Down').attr('id','Down'+QN);
+            $cloner.find('#Copy').attr('id','Copy'+QN);
+            $cloner.find('[name="ss"]').attr('name','ss'+QN);
+            $cloner.find('[name="mm"]').attr('name','mm'+QN);
+            $('#addItem').before($cloner);
+        }else if($(btnAP).attr('id') == "Paste"){
+            if(toCopy == parseInt(0)){ alert('Please Copy A Question First !'); }
+            else {
+                $cloner = $('#LGI' + toCopy).clone().attr('id', 'LGI' + QN).attr('data-order', ($('#LG').children(".list-group-item").length-2));
+
+                var ssNum = parseInt($cloner.find('#SingleSelect'+toCopy).children().length) - 2;
+                var msNum = $cloner.find('#MultiSelect'+toCopy).children().length - 1;
+                for(var i = 1; i <= ssNum; i++){
+                    $cloner.find('#Ans'+toCopy+i).attr('id','Ans'+QN+i);
+                }
+                for(var j = 1; j <= msNum; j++){
+                    $cloner.find('#Anm'+toCopy+j).attr('id','Anm'+QN+j);
+                }
+
+                $cloner.find('#QL'+toCopy).attr('id','QL'+QN).text('Question'+($('#LG').children(".list-group-item").length-2)+':');
+                $cloner.find('#Ques'+toCopy).attr('id','Ques'+QN);
+                $cloner.find('#TextInput'+toCopy).attr('id','TextInput'+QN);
+                $cloner.find('#AnswerType'+toCopy).attr('id','AnswerType'+QN);
+                $cloner.find('#SingleSelect'+toCopy).attr('id','SingleSelect'+QN);
+                $cloner.find('#ANSs'+toCopy).attr('id','ANSs'+QN);
+                $cloner.find('#MultiSelect'+toCopy).attr('id','MultiSelect'+QN);
+                $cloner.find('#ANMs'+toCopy).attr('id','ANMs'+QN);
+                $cloner.find('#AnswerNumberS'+toCopy).attr('id','AnswerNumberS'+QN);
+                $cloner.find('#AnswerNumberM'+toCopy).attr('id','AnswerNumberM'+QN);
+                $cloner.find('#Delete'+toCopy).attr('id','Delete'+QN);
+                $cloner.find('#Up'+toCopy).attr('id','Up'+QN);
+                $cloner.find('#Down'+toCopy).attr('id','Down'+QN);
+                $cloner.find('#Copy'+toCopy).attr('id','Copy'+QN);
+                $cloner.find('[name="ss"]'+toCopy).attr('name','ss'+QN);
+                $cloner.find('[name="mm"]'+toCopy).attr('name','mm'+QN);
+                $('#addItem').before($cloner);
+                var sel = $("#AnswerType"+toCopy+' option:selected').val();
+                var ns = $("#AnswerNumberS"+toCopy+' option:selected').val();
+                var nm = $("#AnswerNumberM"+toCopy+' option:selected').val();
+                $('#AnswerType'+QN).val(sel);
+                $("#AnswerNumberS"+QN).val(ns);
+                $("#AnswerNumberM"+QN).val(nm);
+                lastChoice = '#'+sel+QN;
+            }
+        } else { }
+
+        $('#Delete'+QN).on('click', function(e) {
+            var num = parseInt($('#LG').children(".list-group-item").length-2) - $('#LGI'+QN).attr('data-order');
+            var temp = $('#LGI'+QN);
+            for(var i = 0; i < num; i++) {
+                temp = temp.next();
+                var order = temp.attr('data-order');
+                temp.attr('data-order',parseInt(order-1));
+                order = temp.attr('data-order');
+                temp.find('.QLC').text('Question'+order+':');
+            }
+            $('#LGI'+QN).remove();
+
+        });
+
+        $('#Up'+QN).on('click', function(e) {
+            var order = parseInt($('#LGI'+QN).attr('data-order'));
+            if(order == parseInt(1)){alert('Its already on the top !');}
+            else{
+                $('#LGI'+QN).attr('data-order',parseInt(order-1));
+                $('#LGI'+QN).find('.QLC').text('Question'+parseInt(order-1)+':');
+                $('#LGI'+QN).prev().attr('data-order',order);
+                $('#LGI'+QN).prev().find('.QLC').text('Question'+order+':');
+                $('#LGI'+QN).insertBefore($('#LGI'+QN).prev());
+            }
+        });
+
+        $('#Down'+QN).on('click', function(e) {
+            var order = parseInt($('#LGI'+QN).attr('data-order'));
+            var max = parseInt($('#LG').children(".list-group-item").length-3);
+            if(order == max){alert('Its already on the buttom !');}
+            else{
+                $('#LGI'+QN).attr('data-order',parseInt(order+1));
+                $('#LGI'+QN).find('.QLC').text('Question'+parseInt(order+1)+':');
+                $('#LGI'+QN).next().attr('data-order',order);
+                $('#LGI'+QN).next().find('.QLC').text('Question'+order+':');
+                $('#LGI'+QN).insertAfter($('#LGI'+QN).next());
+            }
+        });
+
+        $('#Copy'+QN).on('click', function(e) {
+            toCopy = parseInt(QN);
+            alert('Copy Success !');
+        });
+
+        $(document).on('change', $('#AnswerType'+QN), function(e) {
+            var newChoice = '#'+$('#AnswerType'+QN+' option:selected').val()+QN;
+            if(lastChoice == '#'){}
+            else{
+                $(lastChoice).removeClass("active");
+                $(lastChoice).css("display");
+                $(lastChoice).removeClass("in");
+            }
+//参考网站https://www.cnblogs.com/ihardcoder/p/3859026.html
+            if(newChoice == '#SingleSelect'+QN){
+                if( $('#ANSs'+QN).hasClass("in") ){ }
+                else{
+                    $('#ANSs'+QN).css("display","block");
+                    $('#ANSs'+QN).css("display");
+                    $('#ANSs'+QN).addClass("in");
+                }
+            } else if( $('#ANSs'+QN).hasClass("in") ) {
+                $('#ANSs'+QN).css("display","none");
+                $('#ANSs'+QN).css("display");
+                $('#ANSs'+QN).removeClass("in");
+            } else { }
+
+            if (newChoice == '#MultiSelect'+QN){
+                if( $('#ANMs'+QN).hasClass("in") ){ }
+                else{
+                    $('#ANMs'+QN).css("display","block");
+                    $('#ANMs'+QN).css("display");
+                    $('#ANMs'+QN).addClass("in");
+                }
+            } else if( $('#ANMs'+QN).hasClass("in") ) {
+                $('#ANMs'+QN).css("display","none");
+                $('#ANMs'+QN).css("display");
+                $('#ANMs'+QN).removeClass("in");
+            } else { }
+
+            $(newChoice).addClass("active");
+            $(newChoice).css("display");
+            $(newChoice).addClass("in");
+//单选到多选切换，或刷新页面时，number归1
+            lastChoice = newChoice;
+        });
+
+
+        $(document).on('change', $('#AnswerNumberS'+QN), function(e) {
+            var lastNumberS = parseInt($('#SingleSelect'+QN).children().length-1);
+            var newNumber = parseInt($('#AnswerNumberS'+QN+' option:selected').val());
+            var needToChange = parseInt( newNumber - lastNumberS );
+            if(needToChange>0){
+                for(var i = 0; i < needToChange; i++){
+                    $('#SingleSelect'+QN).append('<div class="row" id="Ans'+QN+parseInt(lastNumberS+i+1)+'"><div class="col-xs-1 col-lg-1" >' +
+                        '<input type="radio" name="ss'+QN+'" value="'+parseInt(lastNumberS+i+1)+'" style="margin-left: 90%">' +
+                        '</div><div class="col-xs-8 col-lg-5" ><input type="text" class="form-control"></div></div>');
+                }
+            }else{
+                var NTC = parseInt(-needToChange);
+                for(var j = 0; j < NTC; j++){
+                    $('#Ans'+QN+parseInt(lastNumberS-j)).remove();
+                }
+            }
+        });
+
+        $(document).on('change', $('#AnswerNumberM'+QN), function(e) {
+            var lastNumberM = parseInt($('#MultiSelect'+QN).children().length-1);
+            var newNumber = parseInt($('#AnswerNumberM'+QN+' option:selected').val());
+            var needToChange = parseInt( newNumber - lastNumberM );
+            if(needToChange>0){
+                for(var i = 0; i < needToChange; i++){
+                    $('#MultiSelect'+QN).append('<div class="row" id="Anm'+QN+parseInt(lastNumberM+i+1)+'"><div class="col-xs-1 col-lg-1" >' +
+                        '<input type="checkbox" name="mm'+QN+'" value="'+parseInt(lastNumberM+i+1)+'" style="margin-left: 90%">' +
+                        '</div><div class="col-xs-8 col-lg-5" ><input type="text" class="form-control" ></div></div>');
+                }
+            }else{
+                var NTC = parseInt(-needToChange);
+                for(var j = 0; j < NTC; j++){
+                    $('#Anm'+QN+parseInt(lastNumberM-j)).remove();
+                }
+            }
+        });
+
+    }
+
+    function toPreview() {
+      //  alert($('#Describe').val());
+        var tempQN = parseInt($('#LG').children(".list-group-item").length-3);
+        var Questionnaire = {
+            'title' : $('#Title').val(),
+            'describe' : $('#Describe').val(),
+            'quesNumber' : tempQN,
+            'ques' : [
+            /*    {
+                    'question' : '',
+                    'type' : '',
+                    'answerNumberS' : '',
+                    'answerNumberM' : '',
+                    'answerS' : [
+                        {
+                            'text': ''
+                        }
+                    ],
+                    'answerM' : [
+                        {
+                            'text': ''
+                        }
+                    ]
+                } */
+            ]
+        };
+      //  var tempLGI = $('.list-group-item[data-order = "0"]');
+        for(var i = 1; i <= tempQN; i++) {
+      //      tempLGI = tempLGI.next();
+            var tempANS = $('#AnswerNumberS'+i).val();
+            var tempANM = $('#AnswerNumberM'+i).val();
+            var tempQues = {
+                'question': $('#Ques'+i).val(),
+                'type': $('#AnswerType'+i).val(),
+                'answerNumberS' : tempANS,
+                'answerNumberM' : tempANM,
+                'answerS': [
+
+                ],
+                'answerM' : [
+
+                ]
+            };
+            for(var s = 1; s <= tempANS; s++){
+                var tempS = {
+                    'text' : $('#Ans'+i+s).find('input[type = "text"]').val()
+                }
+                tempQues.answerS.push(tempS);
+            }
+            for(var m = 1; m <= tempANM; m++){
+                var tempM = {
+                    'text' : $('#Anm'+i+m).find('input[type = "text"]').val()
+                }
+                tempQues.answerM.push(tempM);
+            }
+
+            Questionnaire.ques.push(tempQues);
+        }
+
+        localStorage.setItem('jj', JSON.stringify(Questionnaire));
+        window.open('preview.html');
+    }
+</script>
+</body>
+</html>
